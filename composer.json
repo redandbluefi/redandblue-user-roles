@@ -1,0 +1,16 @@
+{
+  "name": "redandbluefi/redandblue-user-roles",
+  "type": "wordpress-plugin",
+  "description": "A Lightweight WordPress plugin that adds a Content Manager role to wp-admin",
+  "homepage": "https://github.com/redandbluefi/redandblue-user-roles",
+  "keywords": ["wordpress", "plugin"],
+  "license": "MIT",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Jari Savolainen",
+      "email": "jari@redandblue.fi",
+      "homepage": "https://www.redandblue.fi"
+    }
+  ]
+}
