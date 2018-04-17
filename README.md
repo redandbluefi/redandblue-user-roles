@@ -15,11 +15,11 @@ A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Res
 ## Filters
 **'redandblue-user-roles/rnb_urc_comments'**
 
-_(true/false)_ Toggle Comment editing. _Default false (hide)_
+_(true|false)_ Toggle Comment editing. _Default false (hide)_
 
 **'redandblue-user-roles/rnb_urc_users'**
 
-_(true/false)_ Toggle User editing. _Default false (hide)_
+_(true|false)_ Toggle User editing. _Default false (hide)_
 
 **'redandblue-user-roles/rnb_urc_comments'**
 
