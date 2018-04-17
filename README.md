@@ -13,4 +13,5 @@ A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Res
 - Manage SEO
 
 ## Todo
-- [ ] Filters to disable caps in theme functions
+- [ ] Filters to disable/enable caps in theme functions
+- [ ] Add multisite capabilities
