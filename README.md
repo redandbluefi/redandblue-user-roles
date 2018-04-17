@@ -1,5 +1,5 @@
 # redandblue user roles
-A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Restricts the role of installing plugins and themes. Adds to capabilities common to admin for site made in redandblue.
+A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Restricts the role of installing plugins and themes. Adds to common capabilities to admin.
 
 ## Capabilities:
 - Edit/Add posts
