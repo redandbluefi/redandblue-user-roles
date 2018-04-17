@@ -115,7 +115,7 @@ function remove_admin_menu_links(){
     if (!apply_filters('redandblue-user-roles/rnb_urc_comments', false)) {
       remove_menu_page('edit-comments.php');
     }
+    add_menu_page( __('Valikot', 'redandblue'), __('Valikot', 'redandblue'), 'manage_options', 'nav-menus.php','', 'dashicons-editor-justify', 2);
   }
-  add_menu_page( __('Valikot', 'redandblue'), __('Valikot', 'redandblue'), 'manage_options', 'nav-menus.php','', 'dashicons-editor-justify', 2);
 }
 // add_filter('acf/settings/show_admin', '__return_false');
