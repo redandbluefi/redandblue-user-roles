@@ -23,7 +23,7 @@ _(true|false)_ Toggle User editing. _Default false (hide)_
 
 **'redandblue-user-roles/rnb_urc_comments'**
 
-_(array)_ Overwrite capabilities array. See documentation of [Roles and Capabilities](https://codex.wordpress.org/Roles_and_Capabilities#edit_users)
+_(array)_ Overwrite capabilities array. See documentation of [Roles and Capabilities](https://codex.wordpress.org/Roles_and_Capabilities)
 
 ## Example usage of filters
 ```php
