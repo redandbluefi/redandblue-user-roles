@@ -44,4 +44,4 @@ refresh_redandblue_role(); // this function needs to be run only ones to update
 - [X] Filters to disable/enable caps in theme functions
 - [ ] Add multisite capabilities
 - [ ] More filters?
-- [ ] Better way to refresh caps
+- [ ] Better way to refresh caps (WP CLI Command perhaps)

@@ -13,8 +13,7 @@
  * Domain Path: /languages
 */
 
-if( !defined( 'ABSPATH' )  )
-  exit();
+if( !defined( 'ABSPATH' ) ) exit();
 
 // Return role capabilities
 function redandblue_capabilities(){
@@ -64,6 +63,7 @@ function redandblue_capabilities(){
       'delete_users' => $edit_users,
       'create_users' => $edit_users,
       'delete_users' => $edit_users, 
+      'promote_users' => false, 
       
       // Comments
       'moderate_comments' => $edit_comments,
@@ -87,35 +87,36 @@ function redandblue_capabilities(){
 // initial registration of the role
 register_activation_hook( __FILE__,
   function() {
-    add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities()
-    );
+    add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities() );
   }
 );
+
 // use this function if you make changes to capabilities
 function refresh_redandblue_role(){
-  $caps = redandblue_capabilities();
   remove_role('redandblue_content_manager');
-  add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), $caps );
+  add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities() );
 }
 
 // remove unnessecary menu items from content managers
-add_action('admin_menu', 'remove_admin_menu_links');
+add_action('admin_menu',
+  function(){
+    $user = wp_get_current_user();
+    if( in_array('redandblue_content_manager', $user->roles) ) {
+      remove_menu_page('tools.php');
+      remove_menu_page('themes.php');
+      remove_menu_page('options-general.php');
+      remove_menu_page('plugins.php');
+      remove_menu_page('edit.php?post_type=acf-field-group');
 
-function remove_admin_menu_links(){
-  $user = wp_get_current_user();
-  if( in_array('redandblue_content_manager', $user->roles) ) {
-    remove_menu_page('tools.php');
-    remove_menu_page('themes.php');
-    remove_menu_page('options-general.php');
-    remove_menu_page('plugins.php');
-    if (!apply_filters('redandblue-user-roles/rnb_urc_users', false)) {
-      remove_menu_page('users.php');
+      if (!apply_filters('redandblue-user-roles/rnb_urc_users', false)) {
+        remove_menu_page('users.php');
+      }
+      
+      if (!apply_filters('redandblue-user-roles/rnb_urc_comments', false)) {
+        remove_menu_page('edit-comments.php');
+      }
+      // Change position of wp-menus    
+      add_menu_page( __('Valikot', 'redandblue'), __('Valikot', 'redandblue'), 'manage_options', 'nav-menus.php','', 'dashicons-editor-justify', 20);
     }
-    remove_menu_page('edit.php?post_type=acf-field-group');
-    if (!apply_filters('redandblue-user-roles/rnb_urc_comments', false)) {
-      remove_menu_page('edit-comments.php');
-    }
-    add_menu_page( __('Valikot', 'redandblue'), __('Valikot', 'redandblue'), 'manage_options', 'nav-menus.php','', 'dashicons-editor-justify', 2);
   }
-}
-// add_filter('acf/settings/show_admin', '__return_false');
+);
