@@ -28,6 +28,8 @@ function redandblue_capabilities(){
       
       // Posts
       'edit_posts' => true,
+      'delete_posts' => true,
+      'delete_published_posts' => true,
       'publish_posts' => true,
       'edit_others_posts' => true,
       'edit_published_posts'=> true,
@@ -36,6 +38,8 @@ function redandblue_capabilities(){
       
       // Pages
       'edit_pages' => true,
+      'delete_pages' => true,
+      'delete_published_pages' => true,
       'edit_others_pages' => true,
       'publish_pages' => true,
       'edit_published_pages' => true,
