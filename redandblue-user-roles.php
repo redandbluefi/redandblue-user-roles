@@ -22,10 +22,10 @@ function redandblue_capabilities(){
   $edit_comments = apply_filters('redandblue-user-roles/rnb_urc_comments', false);
   $caps_filter = apply_filters('redandblue-user-roles/rnb_urc_caps', []); // caps can be over written by this filter
 
-  $caps = 
+  $caps =
     [
       'read' => true,
-      
+
       // Posts
       'edit_posts' => true,
       'delete_posts' => true,
@@ -36,7 +36,7 @@ function redandblue_capabilities(){
       'edit_published_posts'=> true,
       'read_private_posts' => false,
       'manage_categories' => true,
-      
+
       // Pages
       'edit_pages' => true,
       'delete_pages' => true,
@@ -49,10 +49,10 @@ function redandblue_capabilities(){
 
       // Media
       'upload_files' => true,
-      
+
       // Customize theme
       'edit_theme_options' => true,
-      
+
       // plugins & themes
       'install_plugins' => false,
       'install_themes' => false,
@@ -62,15 +62,15 @@ function redandblue_capabilities(){
       'delete_themes' => false,
       'delete_plugins' => false,
       'edit_plugins' => false,
-      
+
       // Users
       'edit_users' => $edit_users,
       'list_users' => $edit_users,
       'delete_users' => $edit_users,
       'create_users' => $edit_users,
-      'delete_users' => $edit_users, 
-      'promote_users' => false, 
-      
+      'delete_users' => $edit_users,
+      'promote_users' => false,
+
       // Comments
       'moderate_comments' => $edit_comments,
       'edit_comment' => $edit_comments,
@@ -83,6 +83,7 @@ function redandblue_capabilities(){
       'update_plugins' => false,
       'update_themes' => false,
       'level_10' => true,
+      'manage_downloads' => true,
   ];
   if (!empty($caps_filter)) {
     $caps = array_merge($caps, $caps_filter);
@@ -117,11 +118,11 @@ add_action('admin_menu',
       if (!apply_filters('redandblue-user-roles/rnb_urc_users', false)) {
         remove_menu_page('users.php');
       }
-      
+
       if (!apply_filters('redandblue-user-roles/rnb_urc_comments', false)) {
         remove_menu_page('edit-comments.php');
       }
-      // Change position of wp-menus    
+      // Change position of wp-menus
       add_menu_page( __('Valikot', 'redandblue'), __('Valikot', 'redandblue'), 'manage_options', 'nav-menus.php','', 'dashicons-editor-justify', 20);
     }
   }
