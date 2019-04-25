@@ -91,18 +91,14 @@ function redandblue_capabilities(){
   return $caps;
 }
 
-// initial registration of the role
-register_activation_hook( __FILE__,
-  function() {
-    add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities() );
-  }
-);
-
 // use this function if you make changes to capabilities
 function refresh_redandblue_role(){
   remove_role('redandblue_content_manager');
   add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities() );
 }
+
+// initial registration of the role
+register_activation_hook( __FILE__, 'refresh_redandblue_role');
 
 // remove unnessecary menu items from content managers
 add_action('admin_menu',
