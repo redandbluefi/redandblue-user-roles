@@ -69,7 +69,7 @@ function redandblue_capabilities(){
       'delete_users' => $edit_users,
       'create_users' => $edit_users,
       'delete_users' => $edit_users,
-      'promote_users' => false,
+      'promote_users' => $edit_users,
 
       // Comments
       'moderate_comments' => $edit_comments,
@@ -91,7 +91,6 @@ function redandblue_capabilities(){
   return $caps;
 }
 
-// use this function if you make changes to capabilities
 function refresh_redandblue_role(){
   remove_role('redandblue_content_manager');
   add_role( 'redandblue_content_manager', __('Content Manager', 'redandblue'), redandblue_capabilities() );
@@ -99,6 +98,43 @@ function refresh_redandblue_role(){
 
 // initial registration of the role
 register_activation_hook( __FILE__, 'refresh_redandblue_role');
+
+/* 'promote_users' => true, allows user to add any role
+ * including administrator. This just simply removes administrator role 
+ * from the select list in the edit and create forms
+ */
+add_filter('editable_roles', function ($roles){
+  if (current_user_can( 'redandblue_content_manager' )) {
+    $roles = array_filter($roles, function($k){
+      return $k != 'administrator';
+    },ARRAY_FILTER_USE_KEY);
+  }
+  return array_reverse($roles, true);
+});
+
+// Hide administrators from content managers
+add_action('pre_user_query', function ($user_search) {
+  $user = wp_get_current_user();
+  if (current_user_can( 'redandblue_content_manager' )) {
+    global $wpdb;
+    $user_search->query_where = 
+    str_replace('WHERE 1=1', 
+      "WHERE 1=1 AND {$wpdb->users}.ID IN (
+      SELECT {$wpdb->usermeta}.user_id FROM $wpdb->usermeta 
+      WHERE {$wpdb->usermeta}.meta_key = '{$wpdb->prefix}capabilities'
+      AND {$wpdb->usermeta}.meta_value NOT LIKE '%administrator%')", 
+      $user_search->query_where
+    );
+  }
+});
+
+// CLI command to refresh roles
+if ( class_exists( 'WP_CLI' ) ) {
+  WP_CLI::add_command( 'rnb-refresh-roles', function(){
+    refresh_redandblue_role();
+    WP_CLI::success( 'Roles refreshed' );
+  });
+}
 
 // remove unnessecary menu items from content managers
 add_action('admin_menu',

@@ -1,7 +1,9 @@
 # redandblue user roles
+
 A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Restricts the role of installing plugins and themes. Adds common capabilities to admin.
 
 ## Capabilities:
+
 - Edit/Add posts
 - Edit/Add media
 - Edit/Add pages
@@ -13,6 +15,7 @@ A Lightweight WordPress plugin that adds a Content Manager role to wp-admin. Res
 - Manage SEO
 
 ## Filters
+
 **'redandblue-user-roles/rnb_urc_comments'**
 
 _(true|false)_ Toggle Comment editing. _Default false (hide)_
@@ -26,12 +29,15 @@ _(true|false)_ Toggle User editing. _Default false (hide)_
 _(array)_ Overwrite capabilities array. See documentation of [Roles and Capabilities](https://codex.wordpress.org/Roles_and_Capabilities)
 
 ## Example usage of filters
+
 ```php
 // Allow editing of users
-add_filter('redandblue-user-roles/rnb_urc_users', function(){return true;});
+add_filter('redandblue-user-roles/rnb_urc_users', function () {
+  return true;
+});
 
 // Overwriting default capabilities by passing a inline function into filter which returns an array
-add_filter('redandblue-user-roles/rnb_urc_caps', function(){
+add_filter('redandblue-user-roles/rnb_urc_caps', function () {
   return [
     'edit_posts' => false
   ];
@@ -40,8 +46,15 @@ add_filter('redandblue-user-roles/rnb_urc_caps', function(){
 refresh_redandblue_role(); // this function needs to be run only ones to update
 ```
 
+## CLI command
+
+```
+wp rnb-refresh-roles
+```
+
 ## Todo
-- [X] Filters to disable/enable caps in theme functions
+
+- [x] Filters to disable/enable caps in theme functions
 - [ ] Add multisite capabilities
 - [ ] More filters?
-- [ ] Better way to refresh caps (WP CLI Command perhaps)
+- [x] Better way to refresh caps (WP CLI Command perhaps)
