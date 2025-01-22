@@ -104,7 +104,8 @@ register_activation_hook( __FILE__, 'refresh_redandblue_role');
  * from the select list in the edit and create forms
  */
 add_filter('editable_roles', function ($roles){
-  if (current_user_can( 'redandblue_content_manager' )) {
+  if ( !current_user_can('manage_network') && // This allows network admins to add administrators
+       current_user_can('redandblue_content_manager') ) {
     $roles = array_filter($roles, function($k){
       return $k != 'administrator';
     },ARRAY_FILTER_USE_KEY);
@@ -115,7 +116,7 @@ add_filter('editable_roles', function ($roles){
 // Hide administrators from content managers
 add_action('pre_user_query', function ($user_search) {
   $user = wp_get_current_user();
-  if ( !current_user_can('manage_network') && // This make sures that network admins can see all users
+  if ( !current_user_can('manage_network') && // This allows network admins to see all users
        current_user_can('redandblue_content_manager') ) {
     global $wpdb;
     $user_search->query_where = 
