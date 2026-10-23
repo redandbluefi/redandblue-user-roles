@@ -141,6 +141,10 @@ if ( class_exists( 'WP_CLI' ) ) {
 // remove unnessecary menu items from content managers
 add_action('admin_menu',
   function(){
+    if ( is_super_admin() ) {
+      return;
+    }
+
     $user = wp_get_current_user();
     if( in_array('redandblue_content_manager', $user->roles) ) {
       remove_menu_page('tools.php');
